@@ -115,7 +115,7 @@ export const experiences: Experience[] = [
   {
     company: "Evident",
     companyUrl: "https://evidentscientific.com/fr/",
-    role: "Stage — Machine Learning",
+    role: "Ingénieur Machine Learning",
     period: "Sept. 2024 — Janv. 2025",
     location: "Angers",
     bullets: [
