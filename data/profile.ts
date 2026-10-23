@@ -164,6 +164,23 @@ export const projects: Project[] = [
     links: [{ label: "Code", href: "https://github.com/aagadaz/job-agent" }],
   },
   {
+    slug: "rag-docs",
+    title: "RAG Doc Assistant",
+    context: "Projet personnel",
+    period: "2026",
+    summary:
+      "Poser une question en français sur une documentation technique en anglais, et obtenir une réponse sourcée. Avec un jeu d'évaluation pour mesurer chaque réglage.",
+    highlights: [
+      "Réécriture de la question par le LLM avant la recherche : hit rate@4 de 60 % à 97 % sur 35 questions annotées",
+      "Découpage structurel mesuré en tokens du modèle d'embedding, fil d'Ariane par chunk, code jamais altéré",
+      "Embeddings e5 multilingues en local, Chroma, indexation idempotente, citations numérotées",
+      "39 tests hors ligne par injection de dépendances ; interface Gradio derrière une façade",
+    ],
+    stack: ["Python", "LangChain", "Claude API", "Chroma", "Embeddings", "Gradio"],
+    category: "IA générative",
+    links: [{ label: "Code", href: "https://github.com/aagadaz/rag-docs" }],
+  },
+  {
     slug: "oktee-forecast",
     title: "Forecast de réapprovisionnement",
     context: "OKTee",
