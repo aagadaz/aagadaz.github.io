@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { PROJECT_CATEGORIES, projects, type Project, type ProjectCategory } from "@/data/profile";
 import { SectionHeading } from "./SectionHeading";
@@ -13,7 +14,7 @@ const FILTERS: Filter[] = [
   ...PROJECT_CATEGORIES.filter((c) => projects.some((p) => p.category === c)),
 ];
 
-export function Projects() {
+export function Projects({ detailedSlugs }: { detailedSlugs: string[] }) {
   const [filter, setFilter] = useState<Filter>("Tous");
 
   const visible = useMemo(
@@ -43,20 +44,22 @@ export function Projects() {
       <p className="sr-only" aria-live="polite">{visible.length} projet(s) affiché(s)</p>
 
       <ul className="projects-grid">
-        {visible.map((p) => <ProjectCard key={p.slug} project={p} />)}
+        {visible.map((p) => <ProjectCard key={p.slug} project={p} detailed={detailedSlugs.includes(p.slug)} />)}
       </ul>
     </section>
   );
 }
 
-function ProjectCard({ project: p }: { project: Project }) {
+function ProjectCard({ project: p, detailed }: { project: Project; detailed: boolean }) {
   return (
     <li className={p.featured ? "card project-card is-featured" : "card project-card"}>
       <div className="project-top">
         <span className="mono muted">{p.context} · {p.period}</span>
         {p.status && <span className="badge">{p.status}</span>}
       </div>
-      <h3>{p.title}</h3>
+      <h3>
+        {detailed ? <Link href={`/projets/${p.slug}/`} className="card-link">{p.title}</Link> : p.title}
+      </h3>
       <p className="muted">{p.summary}</p>
       <ul className="project-highlights">
         {p.highlights.map((h, i) => <li key={i}>{h}</li>)}
@@ -64,9 +67,10 @@ function ProjectCard({ project: p }: { project: Project }) {
       <ul className="tags">
         {p.stack.map((s) => <li key={s} className="tag">{s}</li>)}
       </ul>
-      {p.links && p.links.length > 0 && (
+      {(detailed || (p.links && p.links.length > 0)) && (
         <div className="project-links">
-          {p.links.map((l) => (
+          {detailed && <Link href={`/projets/${p.slug}/`}>Lire l&apos;étude de cas →</Link>}
+          {p.links?.map((l) => (
             <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">{l.label} ↗</a>
           ))}
         </div>
