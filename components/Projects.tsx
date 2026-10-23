@@ -1,14 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { projects, type Project, type ProjectCategory } from "@/data/profile";
+import { PROJECT_CATEGORIES, projects, type Project, type ProjectCategory } from "@/data/profile";
 import { SectionHeading } from "./SectionHeading";
 
 type Filter = "Tous" | ProjectCategory;
 
-// Catégories dérivées des données : ajouter un projet d'une nouvelle
-// catégorie crée automatiquement le bouton de filtre correspondant.
-const FILTERS: Filter[] = ["Tous", ...Array.from(new Set(projects.map((p) => p.category)))];
+// Ordre fixé par PROJECT_CATEGORIES, mais seules les catégories qui ont
+// au moins un projet obtiennent un bouton (pas de filtre qui mène à une grille vide).
+const FILTERS: Filter[] = [
+  "Tous",
+  ...PROJECT_CATEGORIES.filter((c) => projects.some((p) => p.category === c)),
+];
 
 export function Projects() {
   const [filter, setFilter] = useState<Filter>("Tous");
@@ -48,7 +51,7 @@ export function Projects() {
 
 function ProjectCard({ project: p }: { project: Project }) {
   return (
-    <li className="card project-card">
+    <li className={p.featured ? "card project-card is-featured" : "card project-card"}>
       <div className="project-top">
         <span className="mono muted">{p.context} · {p.period}</span>
         {p.status && <span className="badge">{p.status}</span>}

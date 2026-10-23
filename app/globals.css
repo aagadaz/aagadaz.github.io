@@ -202,6 +202,19 @@ a:hover { color: var(--accent); }
 .badge { font-size: 0.72rem; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--ok); color: var(--ok); }
 @keyframes card-in { from { opacity: 0; transform: translateY(10px); } }
 
+/* Projet phare : occupe toute la ligne de la grille (1 / -1 = de la première à la dernière ligne de colonne) */
+.project-card.is-featured { grid-column: 1 / -1; border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  background: linear-gradient(135deg, var(--accent-soft), var(--bg-elev) 55%); }
+.project-card.is-featured h3 { font-size: 1.3rem; }
+@media (min-width: 900px) {
+  .project-card.is-featured .project-highlights { grid-template-columns: 1fr 1fr; column-gap: 28px; }
+}
+
+/* Sous-titre "Formation" sous la timeline */
+.subheading { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+  margin: 40px 0 4px; font-weight: 600; }
+.timeline-body h3 a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
 /* Contact */
 .contact-card { padding: clamp(28px, 5vw, 48px); text-align: center; display: grid; justify-items: center; gap: 4px; }
 .contact-title { font-size: clamp(1.4rem, 3vw, 1.9rem) !important; letter-spacing: -0.02em; margin-bottom: 8px; }
